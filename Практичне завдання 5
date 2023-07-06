@@ -1,0 +1,34 @@
+#include <iostream>
+
+int countSequences(int n) {
+    if (n <= 2) {
+        return n;
+    }
+
+    int prev0 = 1; // Кількість  довжиною (n-1), що закінчуються нулем
+    int prev1 = 1; // Кількість  довжиною (n-1), що закінчуються одиницею
+
+    for (int i = 3; i <= n; i++) {
+        int curr0 = (prev0 + prev1) % 12345;
+        int curr1 = prev0;
+        // Кількість послідовностей довжиною n
+        prev0 = curr0;
+        prev1 = curr1;
+    }
+
+    return (prev0 + prev1) % 12345;
+    // Повернення кількості шуканих послідовностей за модулем 12345
+}
+
+int main() {
+    int n;
+    std::cout << "Enter the length of sequences n (1 < n < 10000): ";
+    std::cin >> n;
+
+    int result = countSequences(n);
+
+    std::cout << "The number of sequences: " << result << std::endl;
+    // Кількість шуканих послідовностей
+
+    return 0;
+}
